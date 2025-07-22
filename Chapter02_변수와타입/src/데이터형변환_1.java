@@ -106,7 +106,7 @@
 public class 데이터형변환_1 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub 
 		 byte b=(byte)350;
 		 System.out.println(b);
 		 //System.out.println(Integer.toBinaryString(350));
