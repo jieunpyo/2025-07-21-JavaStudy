@@ -31,13 +31,57 @@
  * 		   int a=scan.nextInt()
  * 		3) 난수
  * 		   int a=(int)(Math.random())
+ * 	  41page
+ * 		char => 정수형 취급
+ * 		 | => 문자 / 정수 저장이 가능
+ * 		정수 형식
+ * 		-------
+ * 		 0b , 0B => 이진법
+ * 		 0 => 8진법
+ * 		 0x => 16진법
+ * 		 일반 숫자 => 10진법 ==> 43page
+ * 
+ * 	  51page
+ * 		문자열 타입
+ * 		char : 문자 1개 저장
+ * 		String 변수명="값"
+ * 		=> 특수문자(52page)
+ * 		   \t : tab => 일정 간격
+ * 		   \n : new line => 줄바꿈
+ * 		   \" : "출력
+ * 		   \\ :  \ 출력 
+ * 		---------------------------
+ * 		 웹 , 윈도우 => 모든 데이터형 문자열
  * 
  * 
  */
+import java.util.*;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 public class 데이터형변환 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	throws Exception
+	{
 		// TODO Auto-generated method stub
+		Scanner scan=new Scanner(System.in);
+		System.out.print("가수명 입력:");
+		String ss=scan.next();
+		
+		Document doc=Jsoup.connect("https://www.genie.co.kr/chart/top200").get();
+		Elements title=doc.select("table.list-wrap a.title");
+		Elements singer=doc.select("table.list-wrap a.artist");
+		for(int i=0;i<title.size();i++)
+		{
+			String s=title.get(i).text();
+			String s1=singer.get(i).text();
+			if(s1.contains(ss))
+			System.out.println(s+"("+s1+")");
+		}
+		
 		
 	}
 
