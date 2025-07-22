@@ -83,10 +83,9 @@ package 자바기본문법;
  * 
  */
 public class 자바기초 {
-
+	//프로그램 실행 진입점
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

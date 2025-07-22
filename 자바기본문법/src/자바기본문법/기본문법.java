@@ -54,5 +54,4 @@ public class 기본문법 {
 		// TODO Auto-generated method stub
 		//System.out.println(Arrays.toString("자바".getBytes()));
 	}
-
 }
