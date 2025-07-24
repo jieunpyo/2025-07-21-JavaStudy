@@ -128,5 +128,13 @@ public class 정리문제 {
 		// char c=65
 		char cc=' ';
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
