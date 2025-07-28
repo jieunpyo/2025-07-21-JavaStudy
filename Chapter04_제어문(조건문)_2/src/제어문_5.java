@@ -1,4 +1,4 @@
-// 빈도수 구하기 
+// 빈도수 구하기 => 선택문
 public class 제어문_5 {
 
 	public static void main(String[] args) {
