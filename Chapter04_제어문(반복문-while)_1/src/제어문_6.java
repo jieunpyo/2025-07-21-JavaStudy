@@ -1,5 +1,6 @@
 // 계산기 => 종료전까지
 import java.util.Scanner;
+// while = 1차 
 public class 제어문_6 {
 
 	public static void main(String[] args) {
