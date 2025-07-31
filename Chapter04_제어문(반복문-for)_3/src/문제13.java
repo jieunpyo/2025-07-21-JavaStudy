@@ -15,8 +15,8 @@ public class 문제13 {
 			{
 				System.out.print("*");
 			}
+			System.out.println();
 		}
-		System.out.println();
 	}
 
 }
