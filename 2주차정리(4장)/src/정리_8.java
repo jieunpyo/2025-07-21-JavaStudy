@@ -58,6 +58,15 @@ public class 정리_8 {
 //		  System.out.println(s1.toLowerCase());
 //		  // 원본은 변경되지 않는다 
 //		  System.out.println(s1);
+		int a=10;
+		a=30;
+		String s="0123456789";
+		System.out.println(s.substring(5));
+		s=s.substring(5, 9);
+		s="aaaaaa";
+		s="bbbbb";
+		System.out.println(s);
+		System.out.println(s);
 		
 		
 	}
