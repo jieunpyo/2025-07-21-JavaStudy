@@ -54,7 +54,7 @@ public class 제어문_5 {
 				//			  포함   미포함
 				movie=movie.substring(movie.indexOf("["),
 						movie.lastIndexOf("]")+1);
-				//System.out.println(movie);
+				System.out.println(movie);
 				JSONParser jp=new JSONParser();
 				// [{},{}] => json => javascript object nontaton
 				// 자바스크립트 객체 표현법
@@ -74,7 +74,7 @@ public class 제어문_5 {
 				url+="searchMainRealTicket.do";
 				Document doc=
 					Jsoup.connect(url).get();
-				System.out.println(doc.toString());
+				//System.out.println(doc.toString());
 				String movie=doc.toString();
 				// substring(start,end) => 데이터를 원하는 만큼 자른다
 				//			  포함   미포함
@@ -100,7 +100,7 @@ public class 제어문_5 {
 				url+="searchMainDailySeatTicket.do";
 				Document doc=
 					Jsoup.connect(url).get();
-				System.out.println(doc.toString());
+				//System.out.println(doc.toString());
 				String movie=doc.toString();
 				// substring(start,end) => 데이터를 원하는 만큼 자른다
 				//			  포함   미포함
