@@ -18,7 +18,7 @@ public class 배열_3 {
 		// 데이터를 어떻게 쉽게 제어 
 		// => 수정이 편리 
 		final int ROWS=3; // 수정형 
-		int[] kor=new int[ROWS]; //int kor1,kor2,kor3
+		int[] kor=new int[3]; //int kor1,kor2,kor3 kor={0,0,0}
 		int[] eng=new int[ROWS];
 		int[] math=new int[ROWS];
 		int[] total=new int[ROWS];

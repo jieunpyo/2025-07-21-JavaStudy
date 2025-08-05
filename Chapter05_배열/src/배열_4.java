@@ -31,11 +31,11 @@ public class 배열_4 {
 				min=arr[i];
 		}
 		System.out.println("\n===== 결과 =====");
-		for(int i:arr)// 출력 형식 
+		for(int i:arr)// 출력 형식 int i=0;i<arr.length;i++
 		{
 			// i는 인덱스번호가 아니고 => 실제 저장된 값 읽기 
 			// 데이터가 없는 경우에 자동으로 종료 
-			System.out.print(i+" ");
+			System.out.print(i+" "); //System.out.pritn(arr[i]+" ");
 		}
 		System.out.println("\n최대값:"+max);
 		System.out.println("최소값:"+min);
