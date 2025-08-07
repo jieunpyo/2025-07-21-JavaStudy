@@ -213,11 +213,128 @@
  *
  *		
  */
+import java.util.Scanner;
+// 숫자야구게임
+/*
+ * 	 난수 발생 : 임의의 수 3개 추출 
+ * 	 ------------------------
+ * 	 사용자 입력
+ * 	 비교
+ * 	 힌트
+ * 	 종료여부
+ * 	 --------------- 메소드 5개
+ * 	 => 전체 조립 
+ * 	 --------------- 1개 process()
+ * 	 
+ * 	 1. 매개변수 전송 
+ * 	 2. 호출 위치
+ * 	 3. 다시 게임 => 재귀호출 
+ * 	 -----------------------------
+ * 	 
+ * 
+ */
 public class 메소드_1 {
-
+//	static int[] rand()
+//	{
+//		// 재사용이 어렵다 
+//		int[] com=new int[3];
+//		for(int i=0;i<com.length;i++)
+//		{
+//			com[i]=(int)(Math.random()*9)+1; //1~9
+//			for(int j=0;j<i;j++)
+//			{
+//				// j는 이미 저장 
+//				if(com[j]==com[i])
+//				{
+//					i--;
+//					break;
+//				}
+//			}
+//		}
+//		return com;
+//	}
+//  절차적 언어 ==> 구조적 언어 ==> 객체지향 (OOP)==> 횡단지향(AOP)
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		int[] com=new int[3];
+		for(int i=0;i<com.length;i++)
+		{
+			com[i]=(int)(Math.random()*9)+1; //1~9
+			for(int j=0;j<i;j++)
+			{
+				// j는 이미 저장 
+				if(com[j]==com[i])
+				{
+					i--;
+					break;
+				}
+			}
+		}
+		// 사용자 입력 받기
+		int[] user=new int[3];
+		Scanner scan=new Scanner(System.in);
+		while(true)
+		{
+			// 사용자 입력
+			System.out.print("세자리 정수 입력:");
+			int input=scan.nextInt();
+			// 오류 처리 => 입력이 잘못된 경우 
+			/*
+			 * 	 1. 세자리 정수가 아닌 경우
+			 * 	 2. 중복된 수 입력
+			 * 	 3. 0을 입력하는 경우 
+			 */
+			if(input<100 || input>999)
+			{
+				System.out.println("❌ 잘못된 입력입니다 ");
+				// 다시 처음부터 실행 => while의 조건식 이동 
+				continue;
+			}
+			user[0]=input/100;
+			user[1]=(input%100)/10;
+			user[2]=input%10;
+			
+			if(user[0]==user[1] ||
+			   user[1]==user[2] ||
+			   user[0]==user[2])
+			{
+				System.out.println("❌ 중복된 수는 사용할 수 없다");
+				continue;
+			}
+			
+			if(user[0]==0 || user[1]==0 || user[2]==0)
+			{
+				System.out.println("❌ 0은 사용할 수 없다");
+				continue;
+			}
+			
+			// 비교 => 힌트 => s:같은 위치의 같은 값  b:다른 자리에 같은 값
+			int s=0,b=0;
+			
+			for(int i=0;i<3;i++)
+			{
+				for(int j=0;j<3;j++)
+				{
+					if(com[i]==user[j])
+					{
+						if(i==j)
+							s++;
+						else
+							b++;
+					}
+				}
+			}
+			// 힌트
+			System.out.printf("Input Number:%d,Result:%dS-%dB\n",
+					input,s,b);
+			// 종료
+			if(s==3)
+			{
+				System.out.println("🎉 축하합니다!! GameOver");
+				break;
+			}
+			
+		}
 	}
 
 }
