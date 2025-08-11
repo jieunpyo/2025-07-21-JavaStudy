@@ -206,24 +206,25 @@ class 학생
 		name="심청이";
 		hakbun=2;
 	}*/
-	학생(int h,String n)
-	{
-		hakbun=h;
-		name=n;
-	}
+//	학생(int h,String n)
+//	{
+//		hakbun=h;
+//		name=n;
+//	}
 }
 public class 초기화_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		학생 a=new 학생();
 		//System.out.println("Hello");
-		학생 a=new 학생(1,"홍길동");
-		System.out.println(a.name);
-		System.out.println(a.hakbun);
-		
-		학생 b=new 학생(2,"심청이");
-		System.out.println(b.name);
-		System.out.println(b.hakbun);
+//		학생 a=new 학생(1,"홍길동");
+//		System.out.println(a.name);
+//		System.out.println(a.hakbun);
+//		
+//		학생 b=new 학생(2,"심청이");
+//		System.out.println(b.name);
+//		System.out.println(b.hakbun);
 	}
 
 }
