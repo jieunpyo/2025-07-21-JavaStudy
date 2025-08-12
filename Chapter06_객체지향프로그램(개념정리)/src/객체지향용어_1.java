@@ -227,17 +227,70 @@ class Student
 		hakbun=h;
 	}
 	Student(String n) {
-		
+		this(10); // Student(int h)
+		name=n;
 	}
 	Student(int h,String n) {
-		
+		hakbun=h;
+		name=n;
+	}
+}
+// 매개변수나 인스턴스 변수에 중복이 있는 경우 
+class Car
+{
+	String model;
+	String color;
+	int maxSpeed;
+	
+	Car(String m)
+	{
+		//model=m;
+		//color="검정색";
+		//maxSpeed=300;
+		this(m,"검정색",300);
+	}
+	Car(String m,String c)
+	{
+		//model=m;
+		//color=c;
+		//maxSpeed=250;
+		this(m,c,250); // 다른 생성자 호출 
+	}
+	Car(String m,String c,int ms)
+	{
+		model=m;
+		color=c;
+		maxSpeed=ms;
 	}
 }
 public class 객체지향용어_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Student std=new Student();
+		System.out.println("std.hakbun="+std.hakbun);//1
+		System.out.println("std.name="+std.name);//홍길동
+		
+		Student std2=new Student(5);
+		System.out.println("std2.hakbun="+std2.hakbun);//5
+		System.out.println("std2.name="+std2.name);//홍길동
+		
+		Student std3=new Student("심청이");
+		System.out.println("std3.hakbun="+std3.hakbun);//10
+		System.out.println("std3.name="+std3.name);//심청이
+		
+		Student std4=new Student(7, "이순신");
+		System.out.println("std4.hakbun="+std4.hakbun);//7
+		System.out.println("std4.name="+std4.name);//이순신
+		
+		Car c1=new Car("현대자동차");
+		System.out.println("c1.model="+c1.model);
+		System.out.println("c1.color="+c1.color);
+		System.out.println("c1.speed="+c1.maxSpeed);
+		Car c2=new Car("기아자동차","회색");
+		System.out.println("c2.model="+c2.model);
+		System.out.println("c2.color="+c2.color);
+		System.out.println("c2.speed="+c2.maxSpeed);
 	}
 
 }
