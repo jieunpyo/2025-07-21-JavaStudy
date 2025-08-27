@@ -28,8 +28,69 @@ public class MovieSystem {
 			for(String movie:movies)
 			{
 				String[] mm=movie.split("\\|");
-				
+				MovieVO vo=new MovieVO();
+				vo.setMno(Integer.parseInt(mm[0]));
+				vo.setTitle(mm[1]);
+				vo.setGenre(mm[2]);
+				vo.setPoster(mm[3]);
+				vo.setActor(mm[4]);
+				vo.setRegdate(mm[5]);
+				vo.setGrade(mm[6]);
+				vo.setDirector(mm[7]);
+				mList.add(vo);
 			}
 		}catch(Exception ex) {}
+	}
+	
+	// 기능 설정
+	public List<MovieVO> movieListDate(int page)
+	{
+		List<MovieVO> list=
+				new ArrayList<MovieVO>();
+		final int ROWSIZE=12;
+		int start=(page*ROWSIZE)-ROWSIZE;
+		int end=page*ROWSIZE;
+		int total=movieTotalPage();
+		if(end>total)
+			end=mList.size();
+		/*
+		 * 	 1page 0~9
+		 * 	 2page 10~19
+		 * 	 ==> 오라클 : 인라인뷰 
+		 */
+		list=mList.subList(start, end);
+		return list;
+	}
+	public MovieVO movieDetailData(int mno)
+	{
+//		MovieVO vo=new MovieVO();
+//		for(MovieVO m:mList)
+//		{
+//			if(mno==m.getMno())
+//			{
+//				vo=m;
+//				break;
+//			}
+//		}
+		return mList.get(mno-1);
+	}
+	// 검색
+	public List<MovieVO> movieFindData(String title)
+	{
+		List<MovieVO> list=
+				new ArrayList<MovieVO>();
+		for(MovieVO m:mList)
+		{
+			if(m.getTitle().contains(title))
+			{
+				list.add(m);
+			}
+		}
+		return list;
+	}
+	// 총페이지 
+	public int movieTotalPage()
+	{
+		return (int)(Math.ceil(mList.size()/12.0));
 	}
 }
