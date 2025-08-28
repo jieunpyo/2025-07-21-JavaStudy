@@ -61,7 +61,7 @@ implements ActionListener,Runnable{
 			name=JOptionPane.showInputDialog("이름 입력:");
 			try
 			{
-				s=new Socket("192.168.0.34",13579);
+				s=new Socket("192.168.0.21",3355);
 				out=s.getOutputStream();
 				in=new BufferedReader(
 						new InputStreamReader(s.getInputStream()));
