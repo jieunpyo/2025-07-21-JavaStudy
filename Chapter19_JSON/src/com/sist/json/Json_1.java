@@ -88,21 +88,39 @@ public class Json_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SimpleJsonManager sm=new SimpleJsonManager();
-		String json=sm.jsonArrayCreate();
+//		SimpleJsonManager sm=new SimpleJsonManager();
+//		String json=sm.jsonArrayCreate();
+//		System.out.println(json);
+//		//String json=sm.jsonObjectCreate(7788);
+//		//System.out.println(json);
+//		List<EmpVO> list=sm.jsonListCreate(json);
+//		for(EmpVO vo:list)
+//		{
+//			System.out.println(vo.getEmpno()+" "
+//					+vo.getEname()+" "
+//					+vo.getJob()+" "
+//					+vo.getHiredate()+" "
+//					+vo.getSal()+" "
+//					+vo.getDeptno());
+//		}
+		JacksonManager jm=new JacksonManager();
+		String json=jm.listJacksonCreate();
 		System.out.println(json);
-		//String json=sm.jsonObjectCreate(7788);
-		//System.out.println(json);
-		List<EmpVO> list=sm.jsonListCreate(json);
+//		String json=jm.voJacksonCreate(7900);
+//		System.out.println(json);
+		//EmpVO vo=jm.jacksonVOCreate(json);
+		List<EmpVO> list=jm.jacksonListCreate(json);
 		for(EmpVO vo:list)
 		{
-			System.out.println(vo.getEmpno()+" "
-					+vo.getEname()+" "
-					+vo.getJob()+" "
-					+vo.getHiredate()+" "
-					+vo.getSal()+" "
-					+vo.getDeptno());
+			System.out.println(vo.getEmpno());
+			System.out.println(vo.getEname());
+			System.out.println(vo.getHiredate());
+			System.out.println(vo.getJob());
+			System.out.println(vo.getSal());
 		}
+		// 객체 => JSON => 자바 => 자바스크립트 (React , Vue)
+		// JSON => 객체 => 외부에서 데이터 읽기 
+		
 	}
 
 }
