@@ -143,7 +143,7 @@ public class MemberDAO {
 		  }
 		  else
 		  {
-			  sql="SELECT pwd,name,addr1 FROM member "
+			  sql="SELECT pwd,name,address FROM member "
 				 +"WHERE id=?";
 			  ps=conn.prepareStatement(sql);
 			  ps.setString(1, id);
