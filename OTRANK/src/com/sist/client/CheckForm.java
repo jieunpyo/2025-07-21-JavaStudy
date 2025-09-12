@@ -13,6 +13,7 @@ public class CheckForm extends JFrame{
     DefaultTableModel model;
     JScrollPane js;	 // 스크롤 바
     
+    public String tag = "";
     // 아이디 중복체크
     public CheckForm()
     {

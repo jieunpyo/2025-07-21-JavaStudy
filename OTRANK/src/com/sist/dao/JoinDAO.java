@@ -33,48 +33,33 @@ public class JoinDAO {
 	}
 
 	   // 1. 아이디 중복 체크 
-	   public int memberIdCheck(String id)
+	   public int memberIdCheck(String tag, String value)
 	   {
 		   int count=0;
+		   
 		   try
-		   {
+		   {	System.out.println(tag);
+		   		System.out.println(value); 
+			   if(tag.equals("아이디 중복체크")) {
+				   tag = "LOGIN_ID";
+			   }else if(tag.equals("닉네임 중복체크")) {
+				   tag = "NICKNAME";
+			   }else if(tag.equals("전화 중복체크")) {
+				   tag = "PHONE";
+			   }
+			   conn = db.getConnection(conn);
 			   String sql="SELECT COUNT(*) "
-					     +"FROM project_member "
-					     +"WHERE id=?";
+					     +"FROM 회원목록 "
+					     +"WHERE "+tag+"=?";
+			   
 			   ps=conn.prepareStatement(sql);
 			   // ?에 값을 채운다 
-			   ps.setString(1, id);
+			   ps.setString(1, value);
 			   // 결과값 받기 
 			   ResultSet rs=ps.executeQuery();
 			   rs.next();
 			   count=rs.getInt(1);
-			   rs.close();
-			}catch(Exception ex)
-			{
-				
-			}
-			finally
-			{
-				db.disConnection(conn,ps);
-			}
-		   return count;
-	   }
-	// 2. 닉네임 중복 체크 
-	   public int memberNicknameCheck(String nickname)
-	   {
-		   int count=0;
-		   try
-		   {
-			   String sql="SELECT COUNT(*) "
-					     +"FROM project_member "
-					     +"WHERE nickname=?";
-			   ps=conn.prepareStatement(sql);
-			   // ?에 값을 채운다 
-			   ps.setString(1, nickname);
-			   // 결과값 받기 
-			   ResultSet rs=ps.executeQuery();
-			   rs.next();
-			   count=rs.getInt(1);
+			   System.out.println(count);
 			   rs.close();
 			}catch(Exception ex)
 			{
@@ -93,6 +78,7 @@ public class JoinDAO {
 				   new ArrayList<ZipcodeVO>();
 		   try
 		   {
+			   conn = db.getConnection(conn);
 			   String sql="SELECT zipcode,sido,gugun,dong,"
 					     +"NVL(bunji,' ') "
 					     +"FROM zipcode "
@@ -130,6 +116,7 @@ public class JoinDAO {
 		   int count=0;
 		   try
 		   {
+			   conn = db.getConnection(conn);
 			   String sql="SELECT COUNT(*) "
 					     +"FROM zipcode "
 					     +"WHERE dong LIKE '%'||?||'%'";
@@ -139,34 +126,6 @@ public class JoinDAO {
 			   ps.setString(1, dong);
 			   // 결과값 받기 
 			   ResultSet rs=ps.executeQuery();
-			   count=rs.getInt(1);
-			   rs.close();
-			}catch(Exception ex)
-			{
-				
-			}
-			finally
-			{
-				db.disConnection(conn,ps);
-			}
-		   return count;
-	   }
-	   // 4. 전화번호 검색 => PRIMARY KEY , UNIQUE (NULL 허용) 
-	   // ID를 모를 경우 => 전화번호로 찾는다 
-	   public int memberPhoneCheck(String value, String tag)
-	   {
-		   int count=0;
-		   try
-		   {
-			   String sql="SELECT COUNT(*) "
-					     +"FROM 회원목록 "
-					     +"WHERE "+tag+"=?";
-			   ps=conn.prepareStatement(sql);
-			   // ?에 값을 채운다 
-			   ps.setString(1, value);
-			   // 결과값 받기 
-			   ResultSet rs=ps.executeQuery();
-			   rs.next();
 			   count=rs.getInt(1);
 			   rs.close();
 			}catch(Exception ex)
@@ -197,8 +156,10 @@ public class JoinDAO {
 		   int result=0;
 		   try
 		   {
-			   String sql="INSERT INTO project_member "
-					     +"VALUES(회원목록_id_num_seq.nextval,?,?,?,?,?,?,?,?,?)";
+			   conn = db.getConnection(conn);
+			   String sql="INSERT INTO 회원목록(ID_NUM,NICKNAME,LOGIN_ID,LOGIN_PWD,SEX,POST,ADDR1,ADDR2,PHONE,NAME,MSG)"
+					     +"VALUES(회원목록_id_num_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
+			  
 			   ps=conn.prepareStatement(sql);
 			   //?에 값을 채운다 
 			   ps.setString(1, vo.getNickname());
@@ -206,12 +167,12 @@ public class JoinDAO {
 			   ps.setString(3, vo.getLogin_pwd());
 			   ps.setString(4, vo.getSex());
 			   ps.setString(5, vo.getPost());
-			   
 			   ps.setString(6, vo.getAddr1());
 			   ps.setString(7, vo.getAddr2());
 			   ps.setString(8, vo.getPhone());
 			   ps.setString(9, vo.getName());
-			   ps.executeUpdate();
+			   ps.setString(10, vo.getMsg());
+			   result = ps.executeUpdate();
 			}catch(Exception ex)
 			{
 				

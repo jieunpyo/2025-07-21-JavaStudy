@@ -18,17 +18,33 @@ import java.awt.event.*;
 public class Login extends JFrame 
 implements ActionListener,MouseListener
 {	
-	JoinDAO dao=JoinDAO.newInstance();
-	private static Map<String, String> checkmap = new HashMap<String, String>();
-	static {
-		checkmap.put("아이디 중복체크", "Login_Id");
-		checkmap.put("닉네임 중복체크", "nickname");
-		checkmap.put("전화번호 중복체크", "Login_Id");
-	}
+	/*
+	JLabel jointext;		 // 회원가입 문구
+	JTextField id;			 // id 텍스트
+	JPasswordField pwd;		 // 비밀번호 텍스트
+	JPasswordField pwdCheck; // 비밀번호 확인
+	JTextField nickName;	 // 닉네임 텍스트
+	JTextField name;		 // 이름 텍스트
+	JRadioButton man,wo;	 // 성별 / 남자 , 여자 라디오 버튼
+	JTextField post;		 // 우편번호
+	JTextField addr1;		 // 주소 텍스트
+	JTextField addr2;		 // 상세주소 텍스트
+	JTextField phone;		 // 전화번호 텍스트
+	JTextArea content;		 // 소개 텍스트
+	
+	JButton idCheck;		 // ID 중복체크 버튼
+	JButton nickCheck;		 // 닉네임 중복체크 버튼
+	JButton phoneCheck;		 // 전화 중복체크 버튼
+	JButton postFind;		 // 우편번호 검색
+	JButton join;			 // 회원가입 버튼
+	JButton cn;				 // 취소 버튼
+	 */
     JLabel la1, la2;
     JTextField tf;
     JPasswordField pf;
     JButton b1, b2, b3;
+    
+    JoinDAO dao=JoinDAO.newInstance();
 
     CardLayout card=new CardLayout();
     JoinForm join=new JoinForm();
@@ -106,13 +122,13 @@ implements ActionListener,MouseListener
       {
          dispose();
       }
-      else if(e.getSource()==b2)
+      if(e.getSource()==b2)
       {
     	  this.setVisible(false);
           join.setVisible(true);
       }
   	  // 우편번호 검색
-      else if(e.getSource()==join.postFind)
+      if(e.getSource()==join.postFind)
   		{
 			post.find.setText("");
 			for(int i=post.model.getRowCount()-1;i>=0;i--)
@@ -123,20 +139,51 @@ implements ActionListener,MouseListener
 			
   		}
       // 로그인 중복체크
-      else if(e.getSource()==join.idCheck)
+      if(e.getSource()==join.idCheck)
   		{
-    	    check.find.setText("");
-			for(int i=post.model.getRowCount()-1;i>=0;i--)
-			{
-				check.model.removeRow(i);
-			}
+    	  	check.find.setText("");
 			check.search.setText("아이디 중복체크");
 			check.setVisible(true);
-			
-//			memberPhoneCheck(checkmap.get(join.idCheck.getText()),)
   		}
       
-      	else if(e.getSource()==join.join)
+      // 닉 중복체크
+      if(e.getSource()==join.nickCheck)
+  		{
+    	  	check.find.setText("");
+			check.search.setText("닉네임 중복체크");
+			check.setVisible(true);
+  		}
+      // 전화번호 중복체크
+      if(e.getSource()==join.phoneCheck)
+  		{
+    	  	check.find.setText("");
+			check.search.setText("전화 중복체크");
+			check.setVisible(true);
+  		}
+      
+      if(e.getSource()==check.search)
+  		{
+			//System.out.println(check.find.getText());
+			int count = dao.memberIdCheck(check.search.getText(), check.find.getText());
+			if(count > 0) {
+				JOptionPane.showMessageDialog(this.join, check.search.getText() + "확인 결과 중복되었습니다.");
+  				join.id.requestFocus();
+  				return;
+			}else {
+				if("아이디 중복체크".equals(check.search.getText())) {
+					join.id.setText(check.find.getText());
+				}else if("닉네임 중복체크".equals(check.search.getText())) {
+					join.nickName.setText(check.find.getText());
+				}else if("전화 중복체크".equals(check.search.getText())) {
+					join.phone.setText(check.find.getText());
+				}
+				
+			}
+  		}
+
+
+      
+      	if(e.getSource()==join.join)
       	{
   			// 유효성 검사 
   			String id=join.id.getText();
@@ -218,24 +265,20 @@ implements ActionListener,MouseListener
   			
   			if(res==0)
   			{
-  				JOptionPane.showMessageDialog(join, this, 
-  						"회원 가입 실패하셨습니다\n"
-  						+"다시 회원가입을 하세요", res);
+  				JOptionPane.showMessageDialog(this.join, "회원가입이 실패하였습니다.");
   			}
   			else
   			{
-  				JOptionPane.showMessageDialog(join, this, 
-  						"🎉🎉회원가입을 축하합니다!!\n"
-  						+"로그인창으로 이동합니다", res);
+  				JOptionPane.showMessageDialog(this.join, "회원가입이 성공하였습니다.");
   				card.show(getContentPane(), "login");
   			}
   		}
-  		else if(e.getSource()==join.join)
+  		if(e.getSource()==join.join)
   		{
   			new Login().setVisible(true);
   			join.setVisible(false);
   		}
-  		else if(e.getSource()==post.search || e.getSource()==post.find)
+  		if(e.getSource()==post.search || e.getSource()==post.find)
   		{
   			String dong=post.find.getText();
   			if(dong.length()<1)
@@ -285,7 +328,7 @@ implements ActionListener,MouseListener
 		  }
 		  else if (e.getSource()==check.search)
 		  {
-			  System.out.println(dao.memberPhoneCheck(checkmap.get(check.search.getText().toString()),check.find.getText().toString()));
+			 // System.out.println(dao.memberPhoneCheck(checkmap.get(check.search.getText().toString()),check.find.getText().toString()));
 		  }
 }
 

@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/javaDev/JTattoo-1.6.13.jar"/>
-	<classpathentry kind="lib" path="C:/javaDev/lombok-1.18.38.jar"/>
-	<classpathentry kind="lib" path="C:/javaDev/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/01DevelopKits/oracleexe/dbhomeXE/jdbc/lib/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jieun/Downloads/JTattoo-1.6.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jieun/Downloads/lombok-1.18.40.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
