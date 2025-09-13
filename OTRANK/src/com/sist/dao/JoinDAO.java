@@ -159,7 +159,6 @@ public class JoinDAO {
 			   conn = db.getConnection(conn);
 			   String sql="INSERT INTO 회원목록(ID_NUM,NICKNAME,LOGIN_ID,LOGIN_PWD,SEX,POST,ADDR1,ADDR2,PHONE,NAME,MSG)"
 					     +"VALUES(회원목록_id_num_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
-			  
 			   ps=conn.prepareStatement(sql);
 			   //?에 값을 채운다 
 			   ps.setString(1, vo.getNickname());

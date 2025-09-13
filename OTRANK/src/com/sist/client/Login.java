@@ -46,7 +46,6 @@ implements ActionListener,MouseListener
     
     JoinDAO dao=JoinDAO.newInstance();
 
-    CardLayout card=new CardLayout();
     JoinForm join=new JoinForm();
     PostFindForm post=new PostFindForm();
     CheckForm check=new CheckForm();
@@ -94,20 +93,23 @@ implements ActionListener,MouseListener
        b3.addActionListener(this); // 취소
        
        // 테이블 버튼
-       post.search.addActionListener(this); // 검색 버튼
-   	   post.cn.addActionListener(this);		// 취소 버튼
-   	   post.find.addActionListener(this);	// 검색 창
-   	   post.table.addMouseListener(this);	// 우편번호 검색 자체 창
-   	   check.table.addMouseListener(this);  // 아이디 중복체크 테이블
-   	   check.search.addActionListener(this);
+       post.table.addMouseListener(this);	 // 우편번호 검색 자체 창
+       post.find.addActionListener(this);	 // 검색 창
+       post.search.addActionListener(this);  // 검색 버튼
+       post.cn.addActionListener(this);		 // 취소 버튼
+   	   
+       check.table.addMouseListener(this);   // 아이디 중복체크 테이블
+       check.find.addActionListener(this);	 // 검색 창
+       check.search.addActionListener(this); // 아이디 중복체크 검색
+       check.cn.addActionListener(this);	 // 취소 버튼
    	   
        //회원가입 버튼
-       join.idCheck.addActionListener(this); // ID 중복체크 버튼
-       join.nickCheck.addActionListener(this); // 닉네임 중복체크 버튼
+       join.idCheck.addActionListener(this);	// ID 중복체크 버튼
+       join.nickCheck.addActionListener(this); 	// 닉네임 중복체크 버튼
        join.phoneCheck.addActionListener(this); // 전화 중복체크 버튼
-       join.postFind.addActionListener(this); // 우편번호 검색
-       join.join.addActionListener(this); // 회원가입 버튼
-       join.cn.addActionListener(this); // 취소 버튼
+       join.postFind.addActionListener(this); 	// 우편번호 검색
+       join.join.addActionListener(this); 		// 회원가입 버튼
+       join.cn.addActionListener(this); 		// 취소 버튼
        
        
     }
@@ -127,6 +129,12 @@ implements ActionListener,MouseListener
     	  this.setVisible(false);
           join.setVisible(true);
       }
+      // 회원가입 취소 버튼
+      if(e.getSource()==join.cn)
+		{
+			new Login().setVisible(true);
+			join.setVisible(false);
+		}
   	  // 우편번호 검색
       if(e.getSource()==join.postFind)
   		{
@@ -145,8 +153,12 @@ implements ActionListener,MouseListener
 			check.search.setText("아이디 중복체크");
 			check.setVisible(true);
   		}
+      if(e.getSource()==check.cn)
+		{
+			check.setVisible(false);
+		}
       
-      // 닉 중복체크
+      // 닉네임 중복체크
       if(e.getSource()==join.nickCheck)
   		{
     	  	check.find.setText("");
@@ -161,35 +173,46 @@ implements ActionListener,MouseListener
 			check.setVisible(true);
   		}
       
-      if(e.getSource()==check.search)
+      if(e.getSource()==check.search || e.getSource()==check.find)
   		{
+    	    String id=join.id.getText();
+    	    String nickName=join.nickName.getText();
+    	    
 			//System.out.println(check.find.getText());
 			int count = dao.memberIdCheck(check.search.getText(), check.find.getText());
 			if(count > 0) {
-				JOptionPane.showMessageDialog(this.join, check.search.getText() + "확인 결과 중복되었습니다.");
+				JOptionPane.showMessageDialog(join, check.search.getText() + "확인 결과 중복되었습니다.");
   				join.id.requestFocus();
   				return;
 			}else {
+				String check_1=check.find.getText();
 				if("아이디 중복체크".equals(check.search.getText())) {
 					join.id.setText(check.find.getText());
+					check.find.requestFocus();
+					check.setVisible(false);
 				}else if("닉네임 중복체크".equals(check.search.getText())) {
 					join.nickName.setText(check.find.getText());
+					check.find.requestFocus();
+					check.setVisible(false);
 				}else if("전화 중복체크".equals(check.search.getText())) {
 					join.phone.setText(check.find.getText());
+					check.find.requestFocus();
+					check.setVisible(false);
+				}
+				if (check_1.length()<1) {
+					JOptionPane.showMessageDialog(check, "중복 검사할 내용을 입력하세요");
 				}
 				
 			}
   		}
 
-
-      
       	if(e.getSource()==join.join)
       	{
   			// 유효성 검사 
   			String id=join.id.getText();
   			if(id.length()<1)
   			{
-  				JOptionPane.showMessageDialog(this.join, "ID 중복체크를 클릭하세요");
+  				JOptionPane.showMessageDialog(join, "ID 중복체크를 클릭하세요");
   				join.id.requestFocus();
   				return;
   			}
@@ -197,19 +220,19 @@ implements ActionListener,MouseListener
   			String pwd=String.valueOf(join.pwd.getPassword());
   			if(pwd.length()<1)
   			{
-  				JOptionPane.showMessageDialog(this.join, "비밀번호를 입력하세요");
+  				JOptionPane.showMessageDialog(join, "비밀번호를 입력하세요");
   				join.pwd.requestFocus();
   				return;
   			}
   			
   			String pwdCheck=String.valueOf(join.pwdCheck.getPassword());
   			if (pwdCheck.isEmpty()) {
-  			    JOptionPane.showMessageDialog(this.join, "비밀번호 확인을 입력하세요");
+  			    JOptionPane.showMessageDialog(join, "비밀번호 확인을 입력하세요");
   			    join.pwdCheck.requestFocus();
   			    return;
   			}
   			if (!pwd.equals(pwdCheck)) {
-  			    JOptionPane.showMessageDialog(this.join, "비밀번호와 비밀번호 확인 값이 틀립니다!!");
+  			    JOptionPane.showMessageDialog(join, "비밀번호와 비밀번호 확인 값이 틀립니다!!");
   			    join.pwdCheck.requestFocus();
   			    return;
   			}
@@ -217,14 +240,14 @@ implements ActionListener,MouseListener
   			String name=join.name.getText();
   			if(name.length()<1)
   			{
-  				JOptionPane.showMessageDialog(this.join, "이름을 입력하세요");
+  				JOptionPane.showMessageDialog(join, "이름을 입력하세요");
   				join.name.requestFocus();
   				return;
   			}
   			String nickName=join.nickName.getText();
   			if(nickName.length()<1)
   			{
-  				JOptionPane.showMessageDialog(this.join, "닉네임 중복체크를 클릭하세요");
+  				JOptionPane.showMessageDialog(join, "닉네임 중복체크를 클릭하세요");
   				join.nickName.requestFocus();
   				return;
   			}
@@ -233,14 +256,9 @@ implements ActionListener,MouseListener
   			String post1=join.post.getText();
   			if(post1.length()<1)
   			{
-  				JOptionPane.showMessageDialog(this.join, "우편번호 검색을 클릭하세요");
+  				JOptionPane.showMessageDialog(join, "우편번호 검색을 클릭하세요");
   				join.post.requestFocus();
   				return;
-  			}
-  			if(e.getSource()==join.cn)
-  			{
-  				new Login().setVisible(true);
-  				join.setVisible(false);
   			}
 
   			String addr1=join.addr1.getText();
@@ -248,6 +266,7 @@ implements ActionListener,MouseListener
   			String post=join.post.getText();
   			String phone=join.phone.getText();
   			String sex = join.man.isSelected() ? "남자" : "여자";
+  			String msg = join.content.getText();
   			
   			MemberVO vo=new MemberVO();
   			vo.setNickname(nickName);
@@ -259,25 +278,24 @@ implements ActionListener,MouseListener
   			vo.setAddr2(addr2);
   			vo.setPhone(phone);
   			vo.setName(name);
+			vo.setMsg(msg);
   			
   			JoinDAO dao=JoinDAO.newInstance();
   			int res=dao.memberJoin(vo);
   			
   			if(res==0)
   			{
-  				JOptionPane.showMessageDialog(this.join, "회원가입이 실패하였습니다.");
+  				JOptionPane.showMessageDialog(join, "회원가입이 실패하였습니다.");
   			}
   			else
   			{
-  				JOptionPane.showMessageDialog(this.join, "회원가입이 성공하였습니다.");
-  				card.show(getContentPane(), "login");
+  				JOptionPane.showMessageDialog(join, "회원가입이 성공하였습니다.");
+  				
+  				join.setVisible(false);
+  		        this.setVisible(true);
   			}
-  		}
-  		if(e.getSource()==join.join)
-  		{
-  			new Login().setVisible(true);
-  			join.setVisible(false);
-  		}
+  			}
+  		
   		if(e.getSource()==post.search || e.getSource()==post.find)
   		{
   			String dong=post.find.getText();
@@ -317,6 +335,7 @@ implements ActionListener,MouseListener
   				post.find.requestFocus();
   			}
   		}
+  		// 우편번호 검색 창 취소 버튼 눌렀을 때
   		else if(e.getSource()==post.cn)
   		{
   			post.setVisible(false);
@@ -324,7 +343,6 @@ implements ActionListener,MouseListener
 		  else if(e.getSource()==b3)
 		  {
 		     dispose();
-		     System.exit(0);
 		  }
 		  else if (e.getSource()==check.search)
 		  {
