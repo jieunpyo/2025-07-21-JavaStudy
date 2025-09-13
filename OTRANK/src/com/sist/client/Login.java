@@ -291,8 +291,21 @@ implements ActionListener,MouseListener
   			{
   				JOptionPane.showMessageDialog(join, "회원가입이 성공하였습니다.");
   				
+  				// 가입창 꺼지고, 로그인창으로
   				join.setVisible(false);
   		        this.setVisible(true);
+  		        
+  		        // 전의 내용 초기화
+  		        join.id.setText("");
+  		        join.pwd.setText("");
+  		        join.pwdCheck.setText("");
+  		        join.nickName.setText("");
+  		        join.name.setText("");
+  		        join.post.setText("");
+  		        join.addr1.setText("");
+  		        join.addr2.setText("");
+  		        join.phone.setText("");
+  		        join.content.setText("");
   			}
   			}
   		
