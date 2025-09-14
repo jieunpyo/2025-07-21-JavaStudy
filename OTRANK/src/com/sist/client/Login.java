@@ -134,6 +134,7 @@ implements ActionListener,MouseListener
 		{
 			new Login().setVisible(true);
 			join.setVisible(false);
+			tf.requestFocus();
 		}
   	  // 우편번호 검색
       if(e.getSource()==join.postFind)
@@ -153,6 +154,7 @@ implements ActionListener,MouseListener
 			check.search.setText("아이디 중복체크");
 			check.setVisible(true);
   		}
+      // 중복체크 취소 버튼
       if(e.getSource()==check.cn)
 		{
 			check.setVisible(false);
@@ -173,12 +175,15 @@ implements ActionListener,MouseListener
 			check.setVisible(true);
   		}
       
+      // 중복체크 텍스트 불러오기
       if(e.getSource()==check.search || e.getSource()==check.find)
   		{
     	    String id=join.id.getText();
     	    String nickName=join.nickName.getText();
     	    
 			//System.out.println(check.find.getText());
+    	    
+    	    // 중복체크 중복 창 띄우기
 			int count = dao.memberIdCheck(check.search.getText(), check.find.getText());
 			if(count > 0) {
 				JOptionPane.showMessageDialog(join, check.search.getText() + "확인 결과 중복되었습니다.");
@@ -296,6 +301,7 @@ implements ActionListener,MouseListener
   				// 가입창 꺼지고, 로그인창으로
   				join.setVisible(false);
   		        this.setVisible(true);
+  		        tf.requestFocus();
   		        
   		        // 전의 내용 초기화
   		        join.id.setText("");
@@ -310,7 +316,8 @@ implements ActionListener,MouseListener
   		        join.content.setText("");
   			}
   			}
-  		
+      	
+  		// 우편 검색 기능
   		if(e.getSource()==post.search || e.getSource()==post.find)
   		{
   			String dong=post.find.getText();
@@ -364,7 +371,7 @@ implements ActionListener,MouseListener
 			 // System.out.println(dao.memberPhoneCheck(checkmap.get(check.search.getText().toString()),check.find.getText().toString()));
 		  }
 }
-
+// 우편번호 검색 관련
    @Override
    public void mouseClicked(MouseEvent e) {
 	// TODO Auto-generated method stub
