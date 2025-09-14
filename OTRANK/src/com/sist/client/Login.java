@@ -190,6 +190,7 @@ implements ActionListener,MouseListener
 					join.id.setText(check.find.getText());
 					check.find.requestFocus();
 					check.setVisible(false);
+					join.pwd.requestFocus();
 				}else if("닉네임 중복체크".equals(check.search.getText())) {
 					join.nickName.setText(check.find.getText());
 					check.find.requestFocus();
@@ -198,6 +199,7 @@ implements ActionListener,MouseListener
 					join.phone.setText(check.find.getText());
 					check.find.requestFocus();
 					check.setVisible(false);
+					join.content.requestFocus();
 				}
 				if (check_1.length()<1) {
 					JOptionPane.showMessageDialog(check, "중복 검사할 내용을 입력하세요");
@@ -374,6 +376,7 @@ implements ActionListener,MouseListener
 			join.post.setText(zip);
 			join.addr1.setText(addr);
 			post.setVisible(false);
+			join.addr2.requestFocus();
 		}
    }
 
